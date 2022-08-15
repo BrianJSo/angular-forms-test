@@ -1,0 +1,21 @@
+<form [formGroup]="todoForm" (submit)="submitForm()">
+<div>
+  <label for="todoTitle">Title</label>
+  <input formControlName="title" id="todoTitle" type="text" />
+  <p
+    *ngIf="
+      todoForm.controls.title.hasError('required') &&
+      todoForm.controls.title.touched
+    "
+  >
+    title is required
+  </p>
+</div>
+<div>
+  <label for="todoCompleted">Completed</label>
+  <input formControlName="completed" id="todoCompleted" type="checkbox" />
+</div>
+<div>
+  <button>Submit</button>
+</div>
+</form>

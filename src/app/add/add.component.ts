@@ -1,38 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, NgModule, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
+import { TodoFormModule } from '../todo-form/todo-form.component';
 
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddComponent implements OnInit {
-  todoForm!: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.todoForm = this.fb.group({
-      title: ['', Validators.required],
-      completed: [false],
-    });
-  }
-
-  submitForm() {
-    console.log(this.todoForm.value);
-    console.log(this.todoForm.valid);
-  }
-
-  ngOnInit() {}
-}
+export class AddComponent {}
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, TodoFormModule],
   declarations: [AddComponent],
   exports: [AddComponent],
 })
