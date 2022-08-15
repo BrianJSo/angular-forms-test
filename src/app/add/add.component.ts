@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
+import { Todo } from '../models';
 import { TodoFormModule } from '../todo-form/todo-form.component';
 
 @Component({
@@ -8,7 +9,11 @@ import { TodoFormModule } from '../todo-form/todo-form.component';
   styleUrls: ['./add.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddComponent {}
+export class AddComponent {
+  handleSubmit(todo: Todo) {
+    console.log(todo);
+  }
+}
 
 @NgModule({
   imports: [CommonModule, TodoFormModule],

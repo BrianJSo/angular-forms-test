@@ -2,8 +2,11 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
+  Input,
   NgModule,
   OnInit,
+  Output,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -12,6 +15,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { switchMap } from 'rxjs';
+import { Todo } from '../models';
 
 @Component({
   selector: 'app-todo-form',
@@ -21,6 +26,8 @@ import {
 })
 export class TodoFormComponent implements OnInit {
   todoForm!: FormGroup;
+  @Input() todo: Todo;
+  @Output() submitTodo = new EventEmitter<Todo>();
 
   constructor(private fb: FormBuilder) {
     this.todoForm = this.fb.group({
@@ -30,11 +37,17 @@ export class TodoFormComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.todoForm.value);
-    console.log(this.todoForm.valid);
+    if (this.todoForm.valid) {
+      this.submitTodo.emit(this.todoForm.value);
+    }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.todo);
+    if (this.todo) {
+      this.todoForm.patchValue(this.todo);
+    }
+  }
 }
 
 @NgModule({
